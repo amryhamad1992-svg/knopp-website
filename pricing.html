@@ -111,9 +111,69 @@
             margin: 0 auto;
         }
 
+        /* Billing Toggle */
+        .billing-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .billing-label {
+            font-size: 15px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .billing-label.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 56px;
+            height: 28px;
+            background: var(--border);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.yearly {
+            background: var(--primary);
+        }
+
+        .toggle-knob {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: var(--white);
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .toggle-switch.yearly .toggle-knob {
+            transform: translateX(28px);
+        }
+
+        .yearly-badge {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
         /* Pricing Section */
         .pricing {
-            padding: 40px 0 80px;
+            padding: 20px 0 80px;
         }
 
         .pricing-grid {
@@ -180,7 +240,7 @@
             display: flex;
             align-items: baseline;
             gap: 4px;
-            margin-bottom: 24px;
+            margin-bottom: 8px;
         }
 
         .price-amount {
@@ -192,6 +252,37 @@
         .price-period {
             font-size: 16px;
             color: var(--gray);
+        }
+
+        .price-yearly-total {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 16px;
+            min-height: 20px;
+        }
+
+        .pricing-card.featured .price-yearly-total {
+            color: var(--primary-light);
+        }
+
+        .savings-badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .pricing-card.featured .savings-badge {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .savings-badge.hidden {
+            visibility: hidden;
         }
 
         .features-list {
@@ -263,6 +354,49 @@
         .btn-outline:hover {
             border-color: var(--primary);
             transform: translateY(-2px);
+        }
+
+        /* Savings Calculator */
+        .savings-calculator {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d5a45 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            color: var(--white);
+            margin-bottom: 40px;
+        }
+
+        .savings-calculator h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .savings-calculator .subtitle {
+            color: var(--primary-light);
+            margin-bottom: 24px;
+        }
+
+        .calculator-result {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .calc-item {
+            text-align: center;
+        }
+
+        .calc-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .calc-label {
+            font-size: 14px;
+            color: var(--primary-light);
+            margin-top: 4px;
         }
 
         /* Contact Section */
@@ -399,6 +533,14 @@
                 padding: 32px 24px;
             }
 
+            .savings-calculator {
+                padding: 32px 24px;
+            }
+
+            .calculator-result {
+                gap: 24px;
+            }
+
             .footer-content {
                 flex-direction: column;
                 text-align: center;
@@ -431,6 +573,18 @@
         </div>
     </section>
 
+    <!-- Billing Toggle -->
+    <div class="container">
+        <div class="billing-toggle">
+            <span class="billing-label active" id="monthly-label">Monthly</span>
+            <div class="toggle-switch" id="billing-toggle" onclick="toggleBilling()">
+                <div class="toggle-knob"></div>
+            </div>
+            <span class="billing-label" id="yearly-label">Yearly</span>
+            <span class="yearly-badge">Save up to 30%</span>
+        </div>
+    </div>
+
     <!-- Pricing -->
     <section class="pricing">
         <div class="container">
@@ -443,6 +597,8 @@
                         <span class="price-amount">$0</span>
                         <span class="price-period">/month</span>
                     </div>
+                    <p class="price-yearly-total">&nbsp;</p>
+                    <span class="savings-badge hidden">No savings</span>
                     <ul class="features-list">
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
@@ -450,7 +606,7 @@
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>50 comments per month</span>
+                            <span>10 comments per month</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
@@ -474,9 +630,11 @@
                     <h3 class="plan-name">Pro</h3>
                     <p class="plan-description">For active LinkedIn users</p>
                     <div class="price">
-                        <span class="price-amount">$9.99</span>
-                        <span class="price-period">/month</span>
+                        <span class="price-amount" id="pro-price">$9.99</span>
+                        <span class="price-period" id="pro-period">/month</span>
                     </div>
+                    <p class="price-yearly-total" id="pro-yearly-total">&nbsp;</p>
+                    <span class="savings-badge hidden" id="pro-savings">Save $23.98/year</span>
                     <ul class="features-list">
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
@@ -503,7 +661,7 @@
                             <span>Priority support</span>
                         </li>
                     </ul>
-                    <a href="mailto:support@useknopp.com?subject=Interested%20in%20Pro%20Plan" class="btn btn-white">Get Pro</a>
+                    <a href="mailto:support@useknopp.com?subject=Interested%20in%20Pro%20Plan" class="btn btn-white" id="pro-btn">Get Pro</a>
                 </div>
 
                 <!-- Max Plan -->
@@ -511,9 +669,11 @@
                     <h3 class="plan-name">Max</h3>
                     <p class="plan-description">For power users & teams</p>
                     <div class="price">
-                        <span class="price-amount">$19.99</span>
-                        <span class="price-period">/month</span>
+                        <span class="price-amount" id="max-price">$19.99</span>
+                        <span class="price-period" id="max-period">/month</span>
                     </div>
+                    <p class="price-yearly-total" id="max-yearly-total">&nbsp;</p>
+                    <span class="savings-badge hidden" id="max-savings">Save $71.96/year</span>
                     <ul class="features-list">
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
@@ -540,7 +700,27 @@
                             <span>Dedicated support</span>
                         </li>
                     </ul>
-                    <a href="mailto:support@useknopp.com?subject=Interested%20in%20Max%20Plan" class="btn btn-primary">Get Max</a>
+                    <a href="mailto:support@useknopp.com?subject=Interested%20in%20Max%20Plan" class="btn btn-primary" id="max-btn">Get Max</a>
+                </div>
+            </div>
+
+            <!-- Savings Calculator -->
+            <div class="savings-calculator" id="savings-calc" style="display: none;">
+                <h2>Your Yearly Savings</h2>
+                <p class="subtitle">See how much you save with annual billing</p>
+                <div class="calculator-result">
+                    <div class="calc-item">
+                        <div class="calc-value" id="calc-pro-savings">$23.98</div>
+                        <div class="calc-label">Pro Yearly Savings</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-value" id="calc-max-savings">$71.96</div>
+                        <div class="calc-label">Max Yearly Savings</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-value">2 months</div>
+                        <div class="calc-label">Free with Max Yearly</div>
+                    </div>
                 </div>
             </div>
 
@@ -582,5 +762,95 @@
             <p class="footer-copy">&copy; 2024 Knopp. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        let isYearly = false;
+
+        // Pricing data
+        const pricing = {
+            pro: {
+                monthly: 9.99,
+                yearlyTotal: 95.90,  // 20% off ($119.88 * 0.80)
+                yearlyMonthly: 7.99,
+                savings: 23.98      // $119.88 - $95.90
+            },
+            max: {
+                monthly: 19.99,
+                yearlyTotal: 167.92, // 30% off ($239.88 * 0.70)
+                yearlyMonthly: 13.99,
+                savings: 71.96       // $239.88 - $167.92
+            }
+        };
+
+        function toggleBilling() {
+            isYearly = !isYearly;
+            updatePricing();
+        }
+
+        function updatePricing() {
+            const toggle = document.getElementById('billing-toggle');
+            const monthlyLabel = document.getElementById('monthly-label');
+            const yearlyLabel = document.getElementById('yearly-label');
+            const savingsCalc = document.getElementById('savings-calc');
+
+            // Update toggle appearance
+            if (isYearly) {
+                toggle.classList.add('yearly');
+                monthlyLabel.classList.remove('active');
+                yearlyLabel.classList.add('active');
+                savingsCalc.style.display = 'block';
+            } else {
+                toggle.classList.remove('yearly');
+                monthlyLabel.classList.add('active');
+                yearlyLabel.classList.remove('active');
+                savingsCalc.style.display = 'none';
+            }
+
+            // Update Pro pricing
+            const proPrice = document.getElementById('pro-price');
+            const proPeriod = document.getElementById('pro-period');
+            const proYearlyTotal = document.getElementById('pro-yearly-total');
+            const proSavings = document.getElementById('pro-savings');
+
+            if (isYearly) {
+                proPrice.textContent = '$' + pricing.pro.yearlyMonthly.toFixed(2);
+                proPeriod.textContent = '/month';
+                proYearlyTotal.textContent = 'Billed as $' + pricing.pro.yearlyTotal.toFixed(2) + '/year';
+                proSavings.textContent = 'Save $' + pricing.pro.savings.toFixed(2) + '/year (20% off)';
+                proSavings.classList.remove('hidden');
+            } else {
+                proPrice.textContent = '$' + pricing.pro.monthly.toFixed(2);
+                proPeriod.textContent = '/month';
+                proYearlyTotal.innerHTML = '&nbsp;';
+                proSavings.classList.add('hidden');
+            }
+
+            // Update Max pricing
+            const maxPrice = document.getElementById('max-price');
+            const maxPeriod = document.getElementById('max-period');
+            const maxYearlyTotal = document.getElementById('max-yearly-total');
+            const maxSavings = document.getElementById('max-savings');
+
+            if (isYearly) {
+                maxPrice.textContent = '$' + pricing.max.yearlyMonthly.toFixed(2);
+                maxPeriod.textContent = '/month';
+                maxYearlyTotal.textContent = 'Billed as $' + pricing.max.yearlyTotal.toFixed(2) + '/year';
+                maxSavings.textContent = 'Save $' + pricing.max.savings.toFixed(2) + '/year (30% off)';
+                maxSavings.classList.remove('hidden');
+            } else {
+                maxPrice.textContent = '$' + pricing.max.monthly.toFixed(2);
+                maxPeriod.textContent = '/month';
+                maxYearlyTotal.innerHTML = '&nbsp;';
+                maxSavings.classList.add('hidden');
+            }
+
+            // Update calculator values
+            document.getElementById('calc-pro-savings').textContent = '$' + pricing.pro.savings.toFixed(2);
+            document.getElementById('calc-max-savings').textContent = '$' + pricing.max.savings.toFixed(2);
+        }
+
+        // Initialize
+        updatePricing();
+    </script>
 </body>
 </html>
