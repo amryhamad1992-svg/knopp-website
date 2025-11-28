@@ -606,11 +606,15 @@
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>10 comments per month</span>
+                            <span>25 comments per month</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>Basic AI model</span>
+                            <span>3 AI images per month</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-check">&#10003;</span>
+                            <span>GPT-4o Mini AI model</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
@@ -630,23 +634,27 @@
                     <h3 class="plan-name">Pro</h3>
                     <p class="plan-description">For active LinkedIn users</p>
                     <div class="price">
-                        <span class="price-amount" id="pro-price">$9.99</span>
+                        <span class="price-amount" id="pro-price">$19.99</span>
                         <span class="price-period" id="pro-period">/month</span>
                     </div>
                     <p class="price-yearly-total" id="pro-yearly-total">&nbsp;</p>
-                    <span class="savings-badge hidden" id="pro-savings">Save $23.98/year</span>
+                    <span class="savings-badge hidden" id="pro-savings">Save $47.98/year</span>
                     <ul class="features-list">
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>100 posts per month</span>
+                            <span>150 posts per month</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>500 comments per month</span>
+                            <span>300 comments per month</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>Advanced AI model (GPT-4o)</span>
+                            <span>50 AI images per month</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-check">&#10003;</span>
+                            <span>3 AI models (Mini, GPT-4o, Gemini)</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
@@ -654,7 +662,7 @@
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>Multiple tone options</span>
+                            <span>Content Intelligence</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
@@ -669,11 +677,11 @@
                     <h3 class="plan-name">Max</h3>
                     <p class="plan-description">For power users & teams</p>
                     <div class="price">
-                        <span class="price-amount" id="max-price">$19.99</span>
+                        <span class="price-amount" id="max-price">$29.99</span>
                         <span class="price-period" id="max-period">/month</span>
                     </div>
                     <p class="price-yearly-total" id="max-yearly-total">&nbsp;</p>
-                    <span class="savings-badge hidden" id="max-savings">Save $71.96/year</span>
+                    <span class="savings-badge hidden" id="max-savings">Save $89.97/year</span>
                     <ul class="features-list">
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
@@ -685,15 +693,19 @@
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>Premium AI (Claude + GPT-4o)</span>
+                            <span>150 AI images per month</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>All Pro features</span>
+                            <span>All 4 AI models + Claude Premium</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
-                            <span>Best-in-class content quality</span>
+                            <span>AI Model Selector</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-check">&#10003;</span>
+                            <span>All Pro features included</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-check">&#10003;</span>
@@ -710,15 +722,15 @@
                 <p class="subtitle">See how much you save with annual billing</p>
                 <div class="calculator-result">
                     <div class="calc-item">
-                        <div class="calc-value" id="calc-pro-savings">$23.98</div>
+                        <div class="calc-value" id="calc-pro-savings">$47.98</div>
                         <div class="calc-label">Pro Yearly Savings</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-value" id="calc-max-savings">$71.96</div>
+                        <div class="calc-value" id="calc-max-savings">$89.97</div>
                         <div class="calc-label">Max Yearly Savings</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-value">2 months</div>
+                        <div class="calc-value">3 months</div>
                         <div class="calc-label">Free with Max Yearly</div>
                     </div>
                 </div>
@@ -766,19 +778,19 @@
     <script>
         let isYearly = false;
 
-        // Pricing data
+        // Pricing data - Updated Nov 2024
         const pricing = {
             pro: {
-                monthly: 9.99,
-                yearlyTotal: 95.90,  // 20% off ($119.88 * 0.80)
-                yearlyMonthly: 7.99,
-                savings: 23.98      // $119.88 - $95.90
+                monthly: 19.99,
+                yearlyTotal: 191.90,  // 20% off ($239.88 * 0.80)
+                yearlyMonthly: 15.99,
+                savings: 47.98       // $239.88 - $191.90
             },
             max: {
-                monthly: 19.99,
-                yearlyTotal: 167.92, // 30% off ($239.88 * 0.70)
-                yearlyMonthly: 13.99,
-                savings: 71.96       // $239.88 - $167.92
+                monthly: 29.99,
+                yearlyTotal: 269.91,  // 25% off ($359.88 * 0.75)
+                yearlyMonthly: 22.49,
+                savings: 89.97        // $359.88 - $269.91
             }
         };
 
