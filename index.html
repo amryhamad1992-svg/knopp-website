@@ -154,12 +154,12 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
         }
 
         .feature-card {
-            padding: 32px;
+            padding: 24px;
             background: var(--light-gray);
             border-radius: 16px;
             text-align: left;
@@ -338,6 +338,13 @@
             fill: var(--primary);
         }
 
+        /* Tablet */
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         /* Mobile */
         @media (max-width: 640px) {
             .nav-links {
@@ -354,6 +361,10 @@
 
             .features {
                 padding: 40px 0 60px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
 
             .footer-content {
