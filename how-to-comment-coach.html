@@ -120,8 +120,49 @@
         .video-section {
             position: sticky;
             top: 40px;
+        }
+
+        .method-tabs {
             display: flex;
-            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .method-tab {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .method-tab:hover {
+            border-color: var(--accent);
+        }
+
+        .method-tab.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .method-tab .tab-label {
+            font-weight: 600;
+            font-size: 14px;
+            display: block;
+        }
+
+        .method-tab .tab-badge {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+
+        .method-tab.active .tab-badge {
+            color: var(--primary-light);
         }
 
         .video-container {
@@ -130,7 +171,8 @@
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
             padding: 12px;
-            display: inline-block;
+            display: flex;
+            justify-content: center;
         }
 
         .video-container video {
@@ -138,6 +180,14 @@
             width: auto;
             display: block;
             border-radius: 16px;
+        }
+
+        .video-wrapper {
+            display: none;
+        }
+
+        .video-wrapper.active {
+            display: block;
         }
 
         .text-section h2 {
@@ -316,40 +366,60 @@
             <div class="content-grid">
                 <!-- Video Section (Left) -->
                 <div class="video-section">
-                    <div class="video-container">
-                        <video controls playsinline poster="">
-                            <source src="videos/Knopp_Comment_Coach_V2.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                    <div class="method-tabs">
+                        <button class="method-tab active" onclick="switchMethod('url')">
+                            <span class="tab-label">Share URL</span>
+                            <span class="tab-badge">Fastest</span>
+                        </button>
+                        <button class="method-tab" onclick="switchMethod('screenshot')">
+                            <span class="tab-label">Screenshot</span>
+                            <span class="tab-badge">Original</span>
+                        </button>
+                    </div>
+                    <div id="url-video" class="video-wrapper active">
+                        <div class="video-container">
+                            <video controls playsinline poster="">
+                                <source src="videos/Knopp_Comment_URL_V2.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                    <div id="screenshot-video" class="video-wrapper">
+                        <div class="video-container">
+                            <video controls playsinline poster="">
+                                <source src="videos/Knopp_Comment_Coach_V2.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Text Section (Right) -->
                 <div class="text-section">
-                    <h2>How It Works</h2>
+                    <h2>Two Ways to Comment</h2>
 
                     <div class="step">
                         <div class="step-number">1</div>
-                        <h3>Screenshot the Post</h3>
-                        <p>When you see a LinkedIn post you want to engage with, take a screenshot. You can also share an image directly to Knopp from your photo gallery or use the share menu.</p>
+                        <h3>Share from LinkedIn</h3>
+                        <p><strong>Fastest method:</strong> When you see a post on LinkedIn, tap Share → Knopp. The app opens instantly with the post ready for comment generation. No screenshots needed!</p>
                     </div>
 
                     <div class="step">
                         <div class="step-number">2</div>
-                        <h3>Upload to Comment Coach</h3>
-                        <p>Open Comment Coach in Knopp and select your screenshot. The AI reads the post content and understands the context, including the author's tone and topic.</p>
+                        <h3>Or Use a Screenshot</h3>
+                        <p><strong>Alternative method:</strong> Take a screenshot of any LinkedIn post, then share the image to Knopp. The AI reads the text from your screenshot automatically.</p>
                     </div>
 
                     <div class="step">
                         <div class="step-number">3</div>
-                        <h3>Choose Your Intent</h3>
-                        <p>Select how you want to engage: agree and add value, ask a thoughtful question, share a related experience, or offer a different perspective. Each generates a unique comment style.</p>
+                        <h3>Choose Your Tone</h3>
+                        <p>Select how you want to engage: supportive, thoughtful, curious, or add a unique perspective. Pick a tone that matches how you want to come across.</p>
                     </div>
 
                     <div class="step">
                         <div class="step-number">4</div>
-                        <h3>Review & Post</h3>
-                        <p>Knopp generates a comment tailored to the post. Review it, make any personal tweaks, then copy and paste it into LinkedIn. Watch your engagement grow!</p>
+                        <h3>Generate & Engage</h3>
+                        <p>Knopp creates a tailored comment. Copy it, head back to LinkedIn, and post. The URL method even takes you back to the original post automatically!</p>
                     </div>
 
                     <div class="tip-box">
@@ -382,5 +452,19 @@
             <p class="footer-copy">&copy; 2024 Knopp. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        function switchMethod(method) {
+            // Update tabs
+            document.querySelectorAll('.method-tab').forEach(tab => tab.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Update videos
+            document.querySelectorAll('.video-wrapper').forEach(wrapper => wrapper.classList.remove('active'));
+            document.getElementById(method + '-video').classList.add('active');
+
+            // Pause all videos
+            document.querySelectorAll('.video-wrapper video').forEach(video => video.pause());
+        }
+    </script>
 </body>
 </html>
